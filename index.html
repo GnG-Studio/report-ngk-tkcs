@@ -116,6 +116,12 @@
                 <a href="#calculator" data-target="calculator" class="nav-link font-semibold p-3 rounded-lg flex items-center">
                     <span class="mr-3">🧮</span> Công cụ tính toán
                 </a>
+                 <a href="#acceleration" data-target="acceleration" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">💨</span> Tính Gia Tốc Đỉnh
+                </a>
+                 <a href="#advanced-acceleration" data-target="advanced-acceleration" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">⚡</span> Tính Gia Tốc Đỉnh Nâng Cao
+                </a>
                  <a href="#quiz" data-target="quiz" class="nav-link font-semibold p-3 rounded-lg flex items-center">
                     <span class="mr-3">🧠</span> Kiểm Tra
                 </a>
@@ -151,7 +157,7 @@
                 <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8">
                     <li>**Chiều cao:** Chu kỳ dao động tỉ lệ thuận với chiều cao của công trình. Công trình càng cao, chu kỳ càng lớn.</li>
                     <li>**Hệ kết cấu:** Đây là yếu tố quyết định độ cứng. Hệ kết cấu vách cứng hoặc lõi cứng có độ cứng lớn hơn nhiều so với hệ khung, dẫn đến chu kỳ dao động ngắn hơn.</li>
-                    <li>**Loại vật liệu:** Vật liệu có mô đun đàn hồi ($E$) cao sẽ làm tăng độ cứng, giảm chu kỳ dao động.</li>
+                    <li>**Loại vật liệu:** Vật liệu có mô đun đàn hồi (E) cao sẽ làm tăng độ cứng, giảm chu kỳ dao động.</li>
                 </ul>
 
                 <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">3. Tiêu Chuẩn & Giới Hạn Thiết Kế</h3>
@@ -164,16 +170,16 @@
                 <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8">
                     <li>
                         <span class="font-semibold">TCVN 9386:2012 & Eurocode 8:</span>
-                        <p class="mt-1">$T_1 = C_t \times H^{3/4}$</p>
+                        <p class="mt-1">T1 = Ct x H^(3/4)</p>
                         <p class="text-sm italic text-slate-500">
-                            Trong đó: $H$ là chiều cao công trình (m), $C_t$ là hệ số phụ thuộc vào loại kết cấu (0.075 cho khung bê tông cốt thép, 0.085 cho khung thép, 0.050 cho vách hoặc lõi cứng).
+                            Trong đó: H là chiều cao công trình (m), Ct là hệ số phụ thuộc vào loại kết cấu (0.075 cho khung bê tông cốt thép, 0.085 cho khung thép, 0.050 cho vách hoặc lõi cứng).
                         </p>
                     </li>
                      <li>
                         <span class="font-semibold">ASCE 7-16:</span>
-                         <p class="mt-1">$T_a = C_t \times H_n^x$</p>
+                         <p class="mt-1">Ta = Ct x Hn^x</p>
                          <p class="text-sm italic text-slate-500">
-                            Trong đó: $H_n$ là chiều cao công trình (ft hoặc m), $C_t$ và $x$ là các hệ số phụ thuộc vào loại kết cấu và hệ thống chịu lực.
+                            Trong đó: Hn là chiều cao công trình (ft hoặc m), Ct và x là các hệ số phụ thuộc vào loại kết cấu và hệ thống chịu lực.
                          </p>
                     </li>
                 </ul>
@@ -240,11 +246,11 @@
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
                             <h4 class="font-bold text-slate-800">TCVN 9386 & Eurocode 8</h4>
-                            <p class="text-sm text-slate-600">Sử dụng công thức $T = 0.075 \times H^{3/4}$, cho kết quả tương tự nhau, nhấn mạnh vào hệ kết cấu và chiều cao.</p>
+                            <p class="text-sm text-slate-600">Sử dụng công thức T = 0.075 x H^(3/4), cho kết quả tương tự nhau, nhấn mạnh vào hệ kết cấu và chiều cao.</p>
                         </div>
                          <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
                             <h4 class="font-bold text-slate-800">ASCE 7 (ước tính)</h4>
-                            <p class="text-sm text-slate-600">Sử dụng công thức đơn giản $T = 0.1 \times N$ (với $N$ là số tầng). Cho một công trình 200m (~60 tầng), kết quả có thể lớn hơn, thể hiện một cách tiếp cận khác dựa trên kinh nghiệm thực tế tại Mỹ.</p>
+                            <p class="text-sm text-slate-600">Sử dụng công thức đơn giản T = 0.1 x N (với N là số tầng). Cho một công trình 200m (~60 tầng), kết quả có thể lớn hơn, thể hiện một cách tiếp cận khác dựa trên kinh nghiệm thực tế tại Mỹ.</p>
                         </div>
                     </div>
                 </div>
@@ -303,6 +309,249 @@
                          <h3 class="font-bold text-lg text-slate-500 mb-2">Kết quả ước tính</h3>
                          <p class="text-4xl md:text-5xl font-bold text-slate-800" id="resultText">0.00 s</p>
                          <p class="text-sm text-slate-500 mt-2">Chu kỳ dao động riêng (T1)</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="acceleration" class="content-section">
+                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Tính Gia Tốc Đỉnh</h2>
+                 <p class="text-lg text-slate-600 mb-6">
+                    Sử dụng công cụ dưới đây để ước tính gia tốc cực đại tại đỉnh công trình.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-lg text-sky-600 mb-4">Nhập thông số</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="periodInput" class="block font-semibold text-sm mb-1 text-slate-700">Chu kỳ dao động (T) (s)</label>
+                                <input type="number" id="periodInput" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500" placeholder="Ví dụ: 3.5">
+                            </div>
+                            <div>
+                                <label for="displacementInput" class="block font-semibold text-sm mb-1 text-slate-700">Chuyển vị đỉnh (D) (mm)</label>
+                                <input type="number" id="displacementInput" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500" placeholder="Ví dụ: 250">
+                            </div>
+                            <div>
+                                <label for="criteriaSelect" class="block font-semibold text-sm mb-1 text-slate-700">Chọn tiêu chí đánh giá</label>
+                                <select id="criteriaSelect" class="w-full p-2 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                    <optgroup label="Tiêu chuẩn TCXD 198:1997">
+                                        <option value="150">198:1997</option>
+                                    </optgroup>
+                                    <optgroup label="Tiêu chuẩn ISO 10137">
+                                        <option value="15">Khu dân cư (Tiêu chuẩn ISO)</option>
+                                        <option value="20">Văn phòng (Tiêu chuẩn ISO)</option>
+                                        <option value="40">Trung tâm thương mại (Tiêu chuẩn ISO)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <button id="calculateAccelBtn" class="w-full bg-sky-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-700 transition-colors">Tính toán</button>
+                        </div>
+                    </div>
+                     <div class="bg-slate-50 p-6 rounded-xl flex flex-col items-center justify-center text-center border-dashed border-2 border-slate-200">
+                         <h3 class="font-bold text-lg text-slate-500 mb-2">Kết quả</h3>
+                         <p class="text-4xl md:text-5xl font-bold text-slate-800" id="accelerationResult">0.00 mm/s2</p>
+                         <p class="text-sm text-slate-500 mt-2">Gia tốc cực đại đỉnh</p>
+                         <div id="comparison-result" class="mt-4 p-3 rounded-lg w-full text-center"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-lg text-sky-600 mb-4">Giới Hạn Tiện Nghi</h3>
+                     <p class="text-sm text-slate-600 mb-4">
+                         Để đảm bảo sự thoải mái cho người sử dụng, các tiêu chuẩn thường đưa ra các giới hạn gia tốc dao động do gió.
+                     </p>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-slate-500 rounded-lg">
+                            <thead class="text-xs text-slate-700 uppercase bg-slate-50">
+                                <tr>
+                                    <th scope="col" class="py-3 px-6 rounded-l-lg">Tiêu chí</th>
+                                    <th scope="col" class="py-3 px-6">Loại công trình</th>
+                                    <th scope="col" class="py-3 px-6 rounded-r-lg">Giới hạn (mm/s2)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-slate-50">
+                                    <td class="py-4 px-6 font-semibold text-slate-900">TCXD 198:1997</td>
+                                    <td class="py-4 px-6">Tổng quát</td>
+                                    <td class="py-4 px-6">150</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-slate-50">
+                                    <td class="py-4 px-6 font-semibold text-slate-900">ISO 10137</td>
+                                    <td class="py-4 px-6">Khu dân cư</td>
+                                    <td class="py-4 px-6">15</td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-slate-50">
+                                    <td class="py-4 px-6 font-semibold text-slate-900"></td>
+                                    <td class="py-4 px-6">Văn phòng</td>
+                                    <td class="py-4 px-6">20</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-slate-50">
+                                    <td class="py-4 px-6 font-semibold text-slate-900"></td>
+                                    <td class="py-4 px-6">Trung tâm thương mại</td>
+                                    <td class="py-4 px-6">40</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                     </div>
+                </div>
+            </section>
+
+            <section id="advanced-acceleration" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Tính Gia Tốc Đỉnh Nâng Cao (Annex B.4)</h2>
+                <p class="text-lg text-slate-600 mb-6">
+                    Công cụ tính toán gia tốc đỉnh theo phương pháp PSD → Modal → F<sub>rms</sub> → a<sub>rms</sub> → k<sub>p</sub> → a<sub>peak</sub>. Kết quả hiển thị bằng <strong>mm/s²</strong>.
+                </p>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Left: Inputs -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-lg text-sky-600 mb-4">Nhập thông số</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="U" class="block font-semibold text-sm mb-1 text-slate-700">1) Thông số gió: Vận tốc trung bình U (m/s)</label>
+                                <input id="U" type="number" value="20" step="0.1" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="Iv" class="block font-semibold text-sm mb-1 text-slate-700">Turbulence intensity I<sub>v</sub> (ví dụ 0.14)</label>
+                                <input id="Iv" type="number" value="0.14" step="0.01" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="Lv" class="block font-semibold text-sm mb-1 text-slate-700">Integral scale L<sub>v</sub> (m)</label>
+                                <input id="Lv" type="number" value="50" step="1" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="rho" class="block font-semibold text-sm mb-1 text-slate-700">Mật độ không khí ρ (kg/m³)</label>
+                                <input id="rho" type="number" value="1.225" step="0.001" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <div>
+                                <label for="n1" class="block font-semibold text-sm mb-1 text-slate-700">2) Modal: Tần số modal n₁ (Hz)</label>
+                                <input id="n1" type="number" value="0.5" step="0.01" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="m1" class="block font-semibold text-sm mb-1 text-slate-700">Khối lượng modal m₁ (kg)</label>
+                                <input id="m1" type="number" value="1000000" step="1000" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="modesCSV" class="block font-semibold text-sm mb-1 text-slate-700">Mode shape (CSV: z:phi, ...). Đỉnh chuẩn hóa = 1</label>
+                                <textarea id="modesCSV" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500 h-20 font-mono text-sm">0:0.05,10:0.15,20:0.35,40:0.65,80:1.0</textarea>
+                                <div class="text-xs text-slate-500 mt-1">Ví dụ: <code class="bg-slate-100 px-1 rounded">0:0.05,10:0.15,20:0.35,40:0.65,80:1.0</code></div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <div>
+                                <label for="segmentsCSV" class="block font-semibold text-sm mb-1 text-slate-700">3) Segments (z:area:Cp) (CSV)</label>
+                                <textarea id="segmentsCSV" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500 h-20 font-mono text-sm">0:10:1.0,20:10:1.0,40:10:1.0,60:10:1.0,80:10:1.0</textarea>
+                                <div class="text-xs text-slate-500 mt-1">area (m²), Cp (pressure coefficient)</div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <div>
+                                <label for="psdModel" class="block font-semibold text-sm mb-1 text-slate-700">4) PSD model</label>
+                                <select id="psdModel" class="w-full p-2 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                    <option value="kaimal">Kaimal (mặc định)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="grid grid-cols-3 gap-2">
+                                <div>
+                                    <label for="fmin" class="block font-semibold text-sm mb-1 text-slate-700">Fmin (Hz)</label>
+                                    <input id="fmin" type="number" value="0.01" step="0.01" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                </div>
+                                <div>
+                                    <label for="fmax" class="block font-semibold text-sm mb-1 text-slate-700">Fmax (Hz)</label>
+                                    <input id="fmax" type="number" value="5" step="0.1" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                </div>
+                                <div>
+                                    <label for="df" class="block font-semibold text-sm mb-1 text-slate-700">df (Hz)</label>
+                                    <input id="df" type="number" value="0.01" step="0.01" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <div>
+                                <label for="sigma_direct" class="block font-semibold text-sm mb-1 text-slate-700">5) Hoặc input trực tiếp σₐ (m/s²) — nếu có</label>
+                                <input id="sigma_direct" type="text" placeholder="Ví dụ 0.005" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="Frms_direct" class="block font-semibold text-sm mb-1 text-slate-700">Hoặc input trực tiếp F<sub>rms</sub> (N)</label>
+                                <input id="Frms_direct" type="text" placeholder="Ví dụ 5000" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="nu" class="block font-semibold text-sm mb-1 text-slate-700">Up-crossing freq ν (s⁻¹) — để trống lấy ν ≈ n₁</label>
+                                <input id="nu" type="number" value="" step="0.01" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div>
+                                <label for="T" class="block font-semibold text-sm mb-1 text-slate-700">Thời gian T (s) để tính k<sub>p</sub> (mặc định 600 s)</label>
+                                <input id="T" type="number" value="600" step="1" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            </div>
+                            
+                            <div class="flex gap-2 mt-6">
+                                <button id="btnCompute" class="flex-1 bg-sky-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-700 transition-colors">Tính a_peak</button>
+                                <button id="btnCSV" class="bg-slate-200 text-slate-700 font-semibold py-3 px-4 rounded-lg hover:bg-slate-300 transition-colors">Xuất CSV</button>
+                                <button id="btnReset" class="bg-slate-200 text-slate-700 font-semibold py-3 px-4 rounded-lg hover:bg-slate-300 transition-colors">Đặt lại</button>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg mt-4">
+                                <p class="text-sm text-blue-800">
+                                    <strong>Ghi chú:</strong> Kaimal PSD được sử dụng cho vận tốc dọc gió. Áp lực động xấp xỉ p' ≈ ρ U v' → S_p(f) ≈ (ρ U)² S_v(f). Đây là xấp xỉ cho ước lượng sơ bộ.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Results -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-lg text-sky-600 mb-4">Kết quả (đơn vị mm/s²)</h3>
+                        <div class="bg-slate-50 p-4 rounded-lg">
+                            <table class="w-full text-sm">
+                                <tbody>
+                                    <tr class="border-b border-slate-200">
+                                        <td class="py-2 font-semibold text-slate-700">Up-crossing ν (s⁻¹)</td>
+                                        <td id="out_nu" class="py-2 text-slate-600">—</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200">
+                                        <td class="py-2 font-semibold text-slate-700">Peak factor k<sub>p</sub></td>
+                                        <td id="out_kp" class="py-2 text-slate-600">—</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200">
+                                        <td class="py-2 font-semibold text-slate-700">F<sub>rms</sub> (N)</td>
+                                        <td id="out_Frms" class="py-2 text-slate-600">—</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200">
+                                        <td class="py-2 font-semibold text-slate-700">a<sub>rms</sub> (m/s²)</td>
+                                        <td id="out_arms" class="py-2 text-slate-600">—</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200">
+                                        <td class="py-2 font-semibold text-slate-700">a<sub>peak</sub> (m/s²)</td>
+                                        <td id="out_apeak_ms2" class="py-2 text-slate-600">—</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 font-bold text-slate-800"><strong>a<sub>peak</sub> (mm/s²)</strong></td>
+                                        <td id="out_apeak_mm" class="py-2 font-bold text-sky-600">—</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mt-4 text-xs text-slate-500" id="notes">Nhấn Tính để chạy.</div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h4 class="font-semibold text-slate-700 mb-2">Test mẫu</h4>
+                            <div class="text-sm text-slate-600">Dữ liệu mặc định sẽ chạy ví dụ sơ bộ; dùng dữ liệu từ ETABS để kết quả chính xác hơn.</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -580,6 +829,12 @@
                  if (targetId === 'summary') {
                     renderSummary();
                 }
+                if (targetId === 'advanced-acceleration') {
+                    // Initialize advanced acceleration calculator when tab is opened
+                    if (typeof $ !== 'undefined' && $('btnReset')) {
+                        $('btnReset').click();
+                    }
+                }
             };
 
             navLinks.forEach(link => {
@@ -728,6 +983,238 @@
                 const T = Ct * Math.pow(H, 0.75);
                 resultText.textContent = `${T.toFixed(2)} s`;
             });
+            
+            const periodInput = document.getElementById('periodInput');
+            const displacementInput = document.getElementById('displacementInput');
+            const calculateAccelBtn = document.getElementById('calculateAccelBtn');
+            const accelerationResult = document.getElementById('accelerationResult');
+            const comparisonResult = document.getElementById('comparison-result');
+            const criteriaSelect = document.getElementById('criteriaSelect');
+            
+            calculateAccelBtn.addEventListener('click', () => {
+                const T = parseFloat(periodInput.value);
+                const D_mm = parseFloat(displacementInput.value);
+                const limit = parseFloat(criteriaSelect.value);
+                const selectedText = criteriaSelect.options[criteriaSelect.selectedIndex].text;
+                
+                if (isNaN(T) || isNaN(D_mm) || T <= 0 || D_mm <= 0 || isNaN(limit)) {
+                    accelerationResult.innerHTML = "Lỗi!";
+                    comparisonResult.className = 'mt-4 p-3 rounded-lg w-full text-center text-red-700 bg-red-100';
+                    comparisonResult.innerHTML = "Vui lòng nhập các giá trị hợp lệ.";
+                    return;
+                }
+                
+                // The formula for acceleration is a = w^2 * D, where w = 2*pi/T
+                const a_max_mm = (4 * Math.PI * Math.PI / (T * T)) * D_mm;
+                
+                accelerationResult.innerHTML = `${a_max_mm.toFixed(2)} mm/s2`;
+                
+                let message = "";
+                let className = "";
+                
+                if (a_max_mm <= limit) {
+                    message = `Kết quả tốt! Gia tốc nằm trong giới hạn cho phép của tiêu chí '${selectedText}'.`;
+                    className = "text-green-700 bg-green-100";
+                } else {
+                    message = `Kết quả vượt quá giới hạn cho phép (${limit} mm/s2) của tiêu chí '${selectedText}'.`;
+                    className = "text-red-700 bg-red-100";
+                }
+                
+                comparisonResult.className = `mt-4 p-3 rounded-lg w-full text-center ${className}`;
+                comparisonResult.innerHTML = message;
+            });
+
+            // Advanced Acceleration Calculator Functions
+            const $ = id => document.getElementById(id);
+
+            /* parse CSV z:val, or z:area:Cp */
+            function parsePairsCSV(text, expectFields=2) {
+                const parts = text.split(',').map(s=>s.trim()).filter(s=>s.length>0);
+                const out = [];
+                for (let p of parts) {
+                    const fields = p.split(':').map(x=>x.trim());
+                    if (fields.length >= expectFields) {
+                        if (expectFields === 2) out.push({z: parseFloat(fields[0]), v: parseFloat(fields[1])});
+                        else out.push({z: parseFloat(fields[0]), area: parseFloat(fields[1]), Cp: parseFloat(fields[2])});
+                    }
+                }
+                out.sort((a,b)=>a.z-b.z);
+                return out;
+            }
+
+            /* Kaimal PSD for along-wind velocity */
+            function S_v_kaimal(f, U, Iv, Lv) {
+                const sigma_u = Iv * U;
+                const x = 6 * f * Lv / Math.max(1e-9, U);
+                const denom = Math.pow(1 + x, 5/3);
+                return 4 * sigma_u * sigma_u * (Lv / Math.max(1e-9, U)) / denom;
+            }
+
+            /* coherence exponential */
+            function coherence_exp(f, dz, U, c_coh=8) {
+                return Math.exp(-c_coh * f * Math.abs(dz) / Math.max(1e-9, U));
+            }
+
+            function compute_kp(nu, T) {
+                const val = Math.max(1e-6, nu * T);
+                const s = Math.sqrt(2 * Math.log(val));
+                if (!isFinite(s) || s <= 0) return 3.0;
+                return s + 0.6 / s;
+            }
+
+            function trapz(x,y) {
+                let s=0;
+                for (let i=1;i<x.length;i++) s += 0.5*(y[i]+y[i-1])*(x[i]-x[i-1]);
+                return s;
+            }
+
+            function compute_all() {
+                // read
+                const U = parseFloat($('U').value) || 0;
+                const Iv = parseFloat($('Iv').value) || 0;
+                const Lv = parseFloat($('Lv').value) || 0;
+                const rho = parseFloat($('rho').value) || 1.225;
+                const n1 = parseFloat($('n1').value) || 0;
+                const m1 = parseFloat($('m1').value) || 0;
+                const modesCSV = $('modesCSV').value.trim();
+                const segsCSV = $('segmentsCSV').value.trim();
+                const fmin = parseFloat($('fmin').value) || 0.01;
+                const fmax = parseFloat($('fmax').value) || 5;
+                const df = parseFloat($('df').value) || 0.01;
+                const sigma_direct = $('sigma_direct').value.trim();
+                const Frms_direct = $('Frms_direct').value.trim();
+                const nu_input_raw = $('nu').value.trim();
+                const T_input = parseFloat($('T').value) || 600;
+
+                // direct cases
+                if (sigma_direct !== '') {
+                    const sigma_a = parseFloat(sigma_direct);
+                    const nu = nu_input_raw === '' ? Math.max(1e-6, n1) : parseFloat(nu_input_raw) || n1;
+                    const kp = compute_kp(nu, T_input);
+                    const a_peak = kp * sigma_a;
+                    return {kp, Frms:null, a_rms:sigma_a, a_peak, a_peak_mm: a_peak*1000, nu};
+                }
+                if (Frms_direct !== '') {
+                    const Frms = parseFloat(Frms_direct);
+                    const omega = 2*Math.PI*n1;
+                    const a_rms = (m1 > 0 && omega>0) ? Frms / (m1 * omega * omega) : 0;
+                    const nu = nu_input_raw === '' ? Math.max(1e-6, n1) : parseFloat(nu_input_raw) || n1;
+                    const kp = compute_kp(nu, T_input);
+                    const a_peak = kp * a_rms;
+                    return {kp, Frms, a_rms, a_peak, a_peak_mm: a_peak*1000, nu};
+                }
+
+                // PSD-> modal force
+                const modePts = parsePairsCSV(modesCSV,2);
+                if (modePts.length < 2) { alert('Mode shape không hợp lệ.'); throw 'bad mode'; }
+                const segs = parsePairsCSV(segsCSV,3);
+                if (segs.length < 1) { alert('Segments không hợp lệ.'); throw 'bad seg'; }
+
+                // phi at segment heights (linear interp)
+                const zs = segs.map(s=>s.z);
+                function interpPhi(z) {
+                    for (let p of modePts) if (Math.abs(p.z - z) < 1e-6) return p.v;
+                    for (let i=0;i<modePts.length-1;i++){
+                        const a=modePts[i], b=modePts[i+1];
+                        if (z > a.z && z < b.z) {
+                            const t = (z-a.z)/(b.z-a.z);
+                            return a.v + t*(b.v - a.v);
+                        }
+                    }
+                    if (z <= modePts[0].z) return modePts[0].v;
+                    return modePts[modePts.length-1].v;
+                }
+                const phi_seg = segs.map(s => interpPhi(s.z));
+                const area_seg = segs.map(s => s.area || 0);
+                const Cp_seg = segs.map(s => s.Cp || 1.0);
+
+                // freq vector
+                const freqs = [];
+                for (let f=fmin; f<=fmax+1e-12; f+=df) freqs.push(Number(f.toFixed(8)));
+                const Nf = freqs.length;
+
+                // S_v
+                const S_v = freqs.map(f => S_v_kaimal(f, U, Iv, Lv));
+                // S_p
+                const Sp = S_v.map(sv => (rho * U)*(rho * U) * sv);
+
+                // modal weighting w_i = Cp_i * A_i * phi_i
+                const w = segs.map((s,i) => ( (Cp_seg[i] || 1) * (area_seg[i] || 0) * (phi_seg[i] || 0) ));
+
+                // S_F(f)
+                const S_F = new Array(Nf).fill(0);
+                for (let k=0;k<Nf;k++){
+                    const f = freqs[k];
+                    let sum = 0;
+                    for (let i=0;i<w.length;i++){
+                        for (let j=0;j<w.length;j++){
+                            const wij = w[i]*w[j];
+                            const coh = coherence_exp(f, Math.abs(segs[i].z - segs[j].z), U, 8.0);
+                            sum += wij * coh;
+                        }
+                    }
+                    S_F[k] = Sp[k] * sum;
+                }
+
+                // integrate S_F to var_F
+                const varF = trapz(freqs, S_F);
+                const Frms = Math.sqrt(Math.max(0,varF));
+                // a_rms
+                const omega = 2*Math.PI*n1;
+                const a_rms = (m1 > 0 && omega > 0) ? Frms / (m1 * omega * omega) : 0;
+
+                const nu = nu_input_raw === '' ? Math.max(1e-6, n1) : parseFloat(nu_input_raw) || n1;
+                const kp = compute_kp(nu, T_input);
+                const a_peak = kp * a_rms;
+                return {kp, Frms, a_rms, a_peak, a_peak_mm: a_peak*1000, nu, details:{varF, Nf}};
+            }
+
+            function render(res) {
+                $('out_nu').innerText = res.nu ? res.nu.toFixed(4) : '—';
+                $('out_kp').innerText = res.kp ? res.kp.toFixed(4) : '—';
+                $('out_Frms').innerText = res.Frms ? res.Frms.toFixed(3) : '—';
+                $('out_arms').innerText = res.a_rms ? res.a_rms.toFixed(6) : '—';
+                $('out_apeak_ms2').innerText = res.a_peak ? res.a_peak.toFixed(6) : '—';
+                $('out_apeak_mm').innerText = res.a_peak_mm ? res.a_peak_mm.toFixed(3) + ' mm/s²' : '—';
+                $('notes').innerText = res.details ? 'Chi tiết: ' + JSON.stringify(res.details) : '';
+            }
+
+            // Advanced acceleration calculator event listeners
+            $('btnCompute').addEventListener('click', function(){
+                try {
+                    const res = compute_all();
+                    render(res);
+                } catch (e) {
+                    console.error(e);
+                    alert('Lỗi khi tính: ' + e);
+                }
+            });
+
+            $('btnReset').addEventListener('click', function(){
+                $('U').value='20'; $('Iv').value='0.14'; $('Lv').value='50'; $('rho').value='1.225';
+                $('n1').value='0.5'; $('m1').value='1000000';
+                $('modesCSV').value='0:0.05,10:0.15,20:0.35,40:0.65,80:1.0';
+                $('segmentsCSV').value='0:10:1.0,20:10:1.0,40:10:1.0,60:10:1.0,80:10:1.0';
+                $('fmin').value='0.01'; $('fmax').value='5'; $('df').value='0.01';
+                $('sigma_direct').value=''; $('Frms_direct').value=''; $('nu').value=''; $('T').value='600';
+                $('out_nu').innerText='—'; $('out_kp').innerText='—'; $('out_Frms').innerText='—';
+                $('out_arms').innerText='—'; $('out_apeak_ms2').innerText='—'; $('out_apeak_mm').innerText='—';
+                $('notes').innerText='Nhấn Tính để chạy';
+            });
+
+            $('btnCSV').addEventListener('click', function(){
+                const rows = [
+                    ['U','Iv','Lv','rho','n1','m1','modesCSV','segsCSV','Frms','a_rms_m_s2','a_peak_m_s2','a_peak_mm_s2'],
+                    [$('U').value,$('Iv').value,$('Lv').value,$('rho').value,$('n1').value,$('m1').value,$('modesCSV').value,$('segmentsCSV').value,$('out_Frms').innerText,$('out_arms').innerText,$('out_apeak_ms2').innerText,$('out_apeak_mm').innerText]
+                ];
+                const csv = rows.map(r=>r.join(',')).join('\n');
+                const blob = new Blob([csv], {type:'text/csv'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'annexB4_peak_mm_s2.csv'; a.click(); URL.revokeObjectURL(url);
+            });
+
+            // Initialize advanced acceleration calculator
+            $('btnReset').click();
         });
     </script>
 </body>
