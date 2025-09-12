@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
-    <!-- Application Structure Plan: Cấu trúc SPA được giữ nguyên với thanh điều hướng bên trái để truy cập nhanh các chủ đề. Đã bổ sung một mục mới 'Giải pháp kiểm soát' để hoàn thiện quy trình nghiên cứu, đi từ lý thuyết đến ứng dụng. Đồng thời, mục 'Tiêu chuẩn' được nâng cấp với một biểu đồ so sánh trực quan, giúp người dùng không chỉ đọc mà còn thấy được sự khác biệt giữa các quy định. Cấu trúc này nhằm tạo ra một công cụ học tập và tra cứu toàn diện, có tính tương tác cao. -->
-    <!-- Visualization & Content Choices: 1. So sánh Tiêu chuẩn -> Mục tiêu: So sánh -> Trình bày: Biểu đồ cột -> Tương tác: Hiển thị giá trị khi di chuột -> Lý do: Trực quan hóa sự khác biệt trong kết quả tính toán chu kỳ theo các tiêu chuẩn khác nhau cho một công trình giả định, giúp so sánh dễ dàng hơn văn bản thuần túy -> Thư viện: Chart.js (Canvas). 2. Quy trình kiểm soát dao động -> Mục tiêu: Tổ chức -> Trình bày: Sơ đồ quy trình -> Tương tác: Không có (tĩnh) -> Lý do: Mô tả một quy trình theo các bước logic, sử dụng các khối và đường nối đơn giản để thể hiện luồng công việc một cách rõ ràng -> Phương pháp: HTML/Tailwind (dùng flexbox và border). -->
+    <!-- Application Structure Plan: Bổ sung một mục "Bài Nghiên Cứu" hoàn chỉnh, bao gồm toàn bộ nội dung văn bản từ bản thảo đầu tiên. Các mục tương tác (biểu đồ, công cụ tính toán) được giữ nguyên và đặt ở các tab riêng biệt, tạo sự tách bạch rõ ràng giữa phần lý thuyết và phần thực hành. -->
+    <!-- Visualization & Content Choices: 1. So sánh Tiêu chuẩn -> Mục tiêu: So sánh -> Trình bày: Biểu đồ cột -> Tương tác: Hiển thị giá trị khi di chuột -> Lý do: Trực quan hóa sự khác biệt trong kết quả tính toán chu kỳ theo các tiêu chuẩn khác nhau cho một công trình giả định, giúp so sánh dễ dàng hơn văn bản thuần túy -> Thư viện: Chart.js (Canvas). 2. Quy trình kiểm soát dao động -> Mục tiêu: Tổ chức -> trình bày: Sơ đồ quy trình -> Tương tác: Không có (tĩnh) -> Lý do: Mô tả một quy trình theo các bước logic, sử dụng các khối và đường nối đơn giản để thể hiện luồng công việc một cách rõ ràng -> Phương pháp: HTML/Tailwind (dùng flexbox và border). -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -101,8 +101,8 @@
         <aside class="w-full md:w-64 bg-white border-r border-slate-200 p-4 md:p-6 shrink-0">
             <h1 class="text-xl font-bold text-sky-600 mb-6">Nghiên Cứu Dao Động</h1>
             <nav class="flex flex-col space-y-2">
-                <a href="#overview" data-target="overview" class="nav-link active font-semibold p-3 rounded-lg flex items-center">
-                    <span class="mr-3">📖</span> Tổng quan
+                <a href="#research" data-target="research" class="nav-link active font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">📄</span> Bài Nghiên Cứu
                 </a>
                 <a href="#factors" data-target="factors" class="nav-link font-semibold p-3 rounded-lg flex items-center">
                     <span class="mr-3">📊</span> Yếu tố ảnh hưởng
@@ -116,33 +116,103 @@
                 <a href="#calculator" data-target="calculator" class="nav-link font-semibold p-3 rounded-lg flex items-center">
                     <span class="mr-3">🧮</span> Công cụ tính toán
                 </a>
+                 <a href="#quiz" data-target="quiz" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">🧠</span> Kiểm Tra
+                </a>
+                <a href="#summary" id="summary-link" data-target="summary" class="nav-link font-semibold p-3 rounded-lg flex items-center hidden">
+                    <span class="mr-3">⭐</span> Tổng hợp kết quả
+                </a>
             </nav>
         </aside>
 
         <main class="flex-1 p-4 md:p-8 lg:p-12 overflow-y-auto">
-            <section id="overview" class="content-section active">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Giới Hạn Chu Kỳ Dao Động Của Nhà Cao Tầng</h2>
-                <p class="text-lg text-slate-600 mb-6">
-                    Phần này giới thiệu tầm quan trọng của việc kiểm soát chu kỳ dao động riêng (T) trong thiết kế nhà cao tầng. Chu kỳ dao động không chỉ ảnh hưởng đến an toàn kết cấu dưới tác động của động đất và gió mà còn liên quan trực tiếp đến cảm nhận tiện nghi của người sử dụng. Một thiết kế tối ưu cần cân bằng giữa độ cứng, khối lượng và các yêu cầu về mặt kinh tế.
+            <section id="research" class="content-section active">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Nghiên Cứu: Giới Hạn Chu Kỳ Dao Động Của Nhà Cao Tầng</h2>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    Phân tích chu kỳ dao động riêng (T) là một trong những nhiệm vụ cốt lõi trong thiết kế nhà cao tầng. Chu kỳ này không chỉ quyết định phản ứng của công trình trước tải trọng động như gió và động đất mà còn ảnh hưởng trực tiếp đến trải nghiệm và sự an toàn tâm lý của người sử dụng. Một thiết kế tối ưu phải đạt được sự cân bằng tinh tế giữa các yêu cầu về độ cứng, khối lượng và tính kinh tế.
                 </p>
+
+                <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">1. Tầm Quan Trọng Của Chu Kỳ Dao Động</h3>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <h3 class="font-bold text-sky-600 text-lg mb-2">An Toàn Kết Cấu</h3>
-                        <p class="text-slate-600">Chu kỳ dao động là thông số quan trọng nhất để xác định lực động đất tác dụng lên công trình. Nếu chu kỳ dao động của công trình trùng với chu kỳ của nền đất, hiện tượng cộng hưởng có thể xảy ra, gây ra hư hỏng nghiêm trọng. Các tiêu chuẩn thiết kế thường giới hạn chu kỳ dao động để tránh vùng cộng hưởng nguy hiểm này.</p>
+                        <h4 class="font-bold text-sky-600 text-lg mb-2">An Toàn Kết Cấu</h4>
+                        <p class="text-slate-600">Chu kỳ dao động là thông số quan trọng nhất để xác định lực động đất tác dụng lên công trình. Nếu chu kỳ dao động của công trình gần với chu kỳ chủ đạo của nền đất, hiện tượng cộng hưởng có thể xảy ra, dẫn đến việc gia tăng đáng kể nội lực và biến dạng, gây ra hư hỏng nghiêm trọng. Các tiêu chuẩn thiết kế thường giới hạn chu kỳ dao động để tránh vùng cộng hưởng nguy hiểm này, đảm bảo công trình có đủ khả năng chống chịu trước các sự kiện địa chấn.</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                        <h3 class="font-bold text-sky-600 text-lg mb-2">Tiện Nghi Sử Dụng</h3>
-                        <p class="text-slate-600">Đối với nhà cao tầng, dao động do gió có thể gây khó chịu cho người sử dụng, ngay cả khi kết cấu vẫn an toàn. Giới hạn về chuyển vị và gia tốc dao động ở đỉnh công trình, vốn liên quan mật thiết đến chu kỳ dao động, được đặt ra để đảm bảo điều kiện tiện nghi và tránh cảm giác chóng mặt, mất an toàn.</p>
+                        <h4 class="font-bold text-sky-600 text-lg mb-2">Tiện Nghi Sử Dụng</h4>
+                        <p class="text-slate-600">Đối với nhà cao tầng, dao động do gió có thể gây cảm giác khó chịu cho người sử dụng, ngay cả khi kết cấu vẫn an toàn. Tiêu chuẩn quốc tế và Việt Nam đều đặt ra các giới hạn nghiêm ngặt về chuyển vị ngang và gia tốc dao động ở đỉnh công trình. Các giới hạn này liên quan mật thiết đến chu kỳ dao động và nhằm đảm bảo điều kiện tiện nghi, tránh các cảm giác như chóng mặt, say sóng, và mất an toàn cho cư dân sinh sống và làm việc bên trong.</p>
                     </div>
                 </div>
-            </section>
 
-            <section id="factors" class="content-section">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Các Yếu Tố Ảnh Hưởng</h2>
-                <p class="text-lg text-slate-600 mb-6">
-                    Chu kỳ dao động riêng của công trình phụ thuộc chủ yếu vào ba yếu tố: khối lượng, độ cứng và chiều cao. Trong phần này, bạn có thể tương tác với biểu đồ để xem chiều cao và hệ kết cấu (đại diện cho độ cứng) ảnh hưởng đến chu kỳ dao động như thế nào.
+                <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">2. Yếu Tố Ảnh Hưởng Đến Chu Kỳ Dao Động</h3>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    Chu kỳ dao động riêng của một công trình phụ thuộc vào một số yếu tố cơ bản, trong đó quan trọng nhất là **khối lượng** và **độ cứng**. Khối lượng càng lớn, chu kỳ dao động càng dài; độ cứng càng cao, chu kỳ dao động càng ngắn.
                 </p>
+                <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8">
+                    <li>**Chiều cao:** Chu kỳ dao động tỉ lệ thuận với chiều cao của công trình. Công trình càng cao, chu kỳ càng lớn.</li>
+                    <li>**Hệ kết cấu:** Đây là yếu tố quyết định độ cứng. Hệ kết cấu vách cứng hoặc lõi cứng có độ cứng lớn hơn nhiều so với hệ khung, dẫn đến chu kỳ dao động ngắn hơn.</li>
+                    <li>**Loại vật liệu:** Vật liệu có mô đun đàn hồi ($E$) cao sẽ làm tăng độ cứng, giảm chu kỳ dao động.</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">3. Tiêu Chuẩn & Giới Hạn Thiết Kế</h3>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    Các tiêu chuẩn thiết kế hiện đại (như TCVN 9386, Eurocode 8 hay ASCE 7) đều cung cấp các công thức thực nghiệm để ước tính chu kỳ dao động của công trình, thường dựa trên chiều cao hoặc số tầng. Tuy nhiên, các công thức này chỉ mang tính chất sơ bộ và cần được kiểm tra lại bằng mô hình phân tích chi tiết.
+                </p>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    Các công thức tiêu biểu:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8">
+                    <li>
+                        <span class="font-semibold">TCVN 9386:2012 & Eurocode 8:</span>
+                        <p class="mt-1">$T_1 = C_t \times H^{3/4}$</p>
+                        <p class="text-sm italic text-slate-500">
+                            Trong đó: $H$ là chiều cao công trình (m), $C_t$ là hệ số phụ thuộc vào loại kết cấu (0.075 cho khung bê tông cốt thép, 0.085 cho khung thép, 0.050 cho vách hoặc lõi cứng).
+                        </p>
+                    </li>
+                     <li>
+                        <span class="font-semibold">ASCE 7-16:</span>
+                         <p class="mt-1">$T_a = C_t \times H_n^x$</p>
+                         <p class="text-sm italic text-slate-500">
+                            Trong đó: $H_n$ là chiều cao công trình (ft hoặc m), $C_t$ và $x$ là các hệ số phụ thuộc vào loại kết cấu và hệ thống chịu lực.
+                         </p>
+                    </li>
+                </ul>
+
+                <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">4. Giải Pháp Kiểm Soát Dao Động</h3>
+                <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                    Khi kết quả tính toán cho thấy chu kỳ dao động không nằm trong giới hạn cho phép hoặc công trình không thỏa mãn các điều kiện về chuyển vị hay gia tốc, các kỹ sư sẽ áp dụng các giải pháp kiểm soát dao động.
+                </p>
+                <p class="text-lg text-slate-600 mb-4 leading-relaxed">
+                    Có hai phương pháp chính để kiểm soát dao động:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8">
+                    <li>**Tăng độ cứng của kết cấu:** Bằng cách thêm vách cứng, lõi cứng, hoặc sử dụng hệ kết cấu **outrigger**, các kỹ sư có thể giảm đáng kể chu kỳ dao động của công trình, giúp nó cứng hơn và ít bị biến dạng hơn dưới tác động của tải trọng ngang.</li>
+                    <li>**Sử dụng các thiết bị tiêu tán năng lượng:** Các thiết bị này bao gồm **Bộ Giảm Chấn Dao Động (Damper)** và **Khối Dao Động Phụ (TMD - Tuned Mass Damper)**. Các thiết bị này không làm thay đổi độ cứng của công trình mà hoạt động bằng cách hấp thụ và tiêu tán năng lượng dao động, giúp giảm chuyển vị và gia tốc ở đỉnh tháp.</li>
+                </ul>
+                
+                <h3 class="text-2xl font-bold text-slate-800 mt-8 mb-4">Nguồn Tham Khảo</h3>
+                <ul class="list-disc list-inside space-y-2 text-slate-600">
+                    <li>
+                        TCVN 9386:2012, "Thiết kế công trình chịu động đất". Bộ Khoa học và Công nghệ.
+                    </li>
+                    <li>
+                        Eurocode 8 (EN 1998-1:2004), "Design of structures for earthquake resistance". European Committee for Standardization.
+                    </li>
+                    <li>
+                        ASCE/SEI 7-16, "Minimum Design Loads and Associated Criteria for Buildings and Other Structures". American Society of Civil Engineers.
+                    </li>
+                    <li>
+                        Chopra, A. K. (2012). "Dynamics of Structures: Theory and Applications to Earthquake Engineering." 4th Edition. Pearson Education, Inc.
+                    </li>
+                </ul>
+            </section>
+            
+            <section id="factors" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Yếu tố Ảnh Hưởng</h2>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <p class="text-lg text-slate-600 mb-6">
+                        Biểu đồ này giúp bạn trực quan hóa sự tương quan giữa chiều cao công trình và chu kỳ dao động. Bạn có thể thay đổi hệ kết cấu để xem độ cứng ảnh hưởng đến chu kỳ như thế nào.
+                    </p>
                     <div class="mb-4">
                         <label class="font-semibold text-slate-700">Chọn hệ kết cấu:</label>
                         <div id="system-selector" class="flex items-center space-x-4 mt-2">
@@ -159,13 +229,10 @@
 
             <section id="standards" class="content-section">
                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Tiêu Chuẩn & Giới Hạn</h2>
-                <p class="text-lg text-slate-600 mb-6">
-                    Các tiêu chuẩn đưa ra các công thức thực nghiệm để ước tính chu kỳ dao động. Biểu đồ dưới đây so sánh kết quả tính toán chu kỳ cho một công trình khung BTCT cao 200m theo ba tiêu chuẩn phổ biến. Sự khác biệt cho thấy tầm quan trọng của việc lựa chọn và áp dụng đúng tiêu chuẩn trong từng dự án cụ thể.
-                </p>
                  <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
                         <h3 class="font-bold text-lg text-sky-600 mb-2">So Sánh Trực Quan</h3>
-                        <p class="text-slate-600 text-sm mb-4">Biểu đồ thể hiện chu kỳ dao động (tính bằng giây) cho một tòa nhà cao 200m.</p>
+                        <p class="text-slate-600 text-sm mb-4">Biểu đồ thể hiện chu kỳ dao động (tính bằng giây) cho một tòa nhà cao 200m theo các tiêu chuẩn khác nhau.</p>
                         <div class="chart-container h-[40vh] max-h-[350px]">
                             <canvas id="standardsChart"></canvas>
                         </div>
@@ -173,11 +240,11 @@
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
                             <h4 class="font-bold text-slate-800">TCVN 9386 & Eurocode 8</h4>
-                            <p class="text-sm text-slate-600">Sử dụng công thức T = 0.075 * H^(3/4), cho kết quả tương tự nhau, nhấn mạnh vào hệ kết cấu và chiều cao.</p>
+                            <p class="text-sm text-slate-600">Sử dụng công thức $T = 0.075 \times H^{3/4}$, cho kết quả tương tự nhau, nhấn mạnh vào hệ kết cấu và chiều cao.</p>
                         </div>
                          <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
                             <h4 class="font-bold text-slate-800">ASCE 7 (ước tính)</h4>
-                            <p class="text-sm text-slate-600">Sử dụng công thức đơn giản T = 0.1 * N (với N là số tầng). Cho một công trình 200m (~60 tầng), kết quả có thể lớn hơn, thể hiện một cách tiếp cận khác dựa trên kinh nghiệm thực tế tại Mỹ.</p>
+                            <p class="text-sm text-slate-600">Sử dụng công thức đơn giản $T = 0.1 \times N$ (với $N$ là số tầng). Cho một công trình 200m (~60 tầng), kết quả có thể lớn hơn, thể hiện một cách tiếp cận khác dựa trên kinh nghiệm thực tế tại Mỹ.</p>
                         </div>
                     </div>
                 </div>
@@ -185,23 +252,25 @@
 
             <section id="solutions" class="content-section">
                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Giải Pháp Kiểm Soát Dao Động</h2>
-                <p class="text-lg text-slate-600 mb-6">
-                    Khi dao động của công trình vượt quá giới hạn cho phép về an toàn hoặc tiện nghi, các kỹ sư sẽ áp dụng nhiều giải pháp khác nhau. Quy trình chung bao gồm việc phân tích, lựa chọn và thiết kế hệ thống kiểm soát phù hợp nhất cho công trình.
-                </p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 w-full">
-                    <div class="flowchart-step">
-                        <h3 class="font-bold text-sky-600">1. Phân Tích</h3>
-                        <p class="text-sm text-slate-500">Mô hình hóa kết cấu, xác định chu kỳ dao động và chuyển vị đỉnh dưới tác động của tải trọng động (gió, động đất).</p>
-                    </div>
-                    <div class="flowchart-arrow"></div>
-                    <div class="flowchart-step">
-                        <h3 class="font-bold text-sky-600">2. Lựa Chọn</h3>
-                        <p class="text-sm text-slate-500">Dựa trên kết quả phân tích, chọn giải pháp: tăng độ cứng (vách, dầm outrigger) hoặc lắp đặt thiết bị cản (TMD, cản nhớt).</p>
-                    </div>
-                    <div class="flowchart-arrow"></div>
-                    <div class="flowchart-step">
-                        <h3 class="font-bold text-sky-600">3. Thiết Kế</h3>
-                        <p class="text-sm text-slate-500">Thiết kế chi tiết giải pháp đã chọn và kiểm tra lại mô hình để đảm bảo công trình thỏa mãn các yêu cầu của tiêu chuẩn.</p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <p class="text-lg text-slate-600 mb-6">
+                        Sơ đồ này tóm tắt quy trình chung để kiểm soát dao động.
+                    </p>
+                    <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 w-full">
+                        <div class="flowchart-step">
+                            <h4 class="font-bold text-sky-600">1. Phân Tích</h4>
+                            <p class="text-sm text-slate-500">Mô hình hóa và tính toán</p>
+                        </div>
+                        <div class="flowchart-arrow"></div>
+                        <div class="flowchart-step">
+                            <h4 class="font-bold text-sky-600">2. Lựa Chọn</h4>
+                            <p class="text-sm text-slate-500">Chọn giải pháp phù hợp</p>
+                        </div>
+                        <div class="flowchart-arrow"></div>
+                        <div class="flowchart-step">
+                            <h4 class="font-bold text-sky-600">3. Thiết Kế</h4>
+                            <p class="text-sm text-slate-500">Thiết kế và kiểm tra lại</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -209,7 +278,7 @@
             <section id="calculator" class="content-section">
                 <h2 class="text-3xl font-bold text-slate-900 mb-4">Công Cụ Tính Toán Sơ Bộ</h2>
                  <p class="text-lg text-slate-600 mb-6">
-                    Sử dụng công cụ dưới đây để ước tính nhanh chu kỳ dao động của công trình theo công thức thực nghiệm phổ biến trong TCVN 9386:2012. Công cụ này giúp bạn có cái nhìn ban đầu về chu kỳ dao động của một nhà cao tầng dựa trên chiều cao và hệ kết cấu của nó.
+                    Sử dụng công cụ dưới đây để ước tính nhanh chu kỳ dao động của công trình theo công thức thực nghiệm.
                 </p>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
@@ -238,6 +307,27 @@
                 </div>
             </section>
 
+             <section id="quiz" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Kiểm Tra Kiến Thức</h2>
+                 <p id="quiz-completion-message" class="text-center text-lg font-medium text-green-700 mb-4 hidden">
+                    Chúc mừng! Bạn đã hoàn thành bài kiểm tra. Hãy xem kết quả của bạn ở mục "Tổng hợp kết quả".
+                </p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div id="quiz-container"></div>
+                </div>
+            </section>
+
+             <section id="summary" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Tổng Hợp Kết Quả</h2>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                    <p class="text-xl font-semibold text-slate-600 mb-4">Điểm của bạn:</p>
+                    <p class="text-6xl font-extrabold text-sky-600 mb-4" id="score-display">0/5</p>
+                    <button id="retake-quiz-btn" class="bg-sky-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-700 transition-colors">
+                        Làm lại bài kiểm tra
+                    </button>
+                </div>
+            </section>
+
         </main>
     </div>
 
@@ -246,9 +336,229 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
             const systemButtons = document.querySelectorAll('.system-btn');
+            const quizCompletionMessage = document.getElementById('quiz-completion-message');
+            const summaryLink = document.getElementById('summary-link');
+            const scoreDisplay = document.getElementById('score-display');
+            const retakeBtn = document.getElementById('retake-quiz-btn');
 
             let periodChart = null;
             let standardsChart = null;
+            let score = 0;
+            let questionsAnswered = 0;
+            
+            // Quiz data
+            const quizData = {
+              "questions": [
+                {
+                  "question": "Nếu một kỹ sư muốn RÚT NGẮN chu kỳ dao động riêng của một tòa nhà cao tầng, phương pháp trực tiếp nhất là gì?",
+                  "hint": "Hãy nghĩ về mối quan hệ giữa độ cứng và tốc độ dao động. Một cây thước cứng và một cây thước dẻo, cây nào dao động nhanh hơn?",
+                  "answerOptions": [
+                    {
+                      "text": "Tăng độ cứng của hệ kết cấu (ví dụ: thêm vách cứng).",
+                      "rationale": "Việc tăng độ cứng của công trình sẽ làm cho nó chống lại biến dạng tốt hơn, dẫn đến dao động nhanh hơn và chu kỳ ngắn hơn.",
+                      "isCorrect": true
+                    },
+                    {
+                      "text": "Tăng tổng khối lượng của công trình.",
+                      "rationale": "Việc tăng khối lượng, trong khi giữ nguyên độ cứng, sẽ làm tăng quán tính, khiến công trình dao động chậm hơn và có chu kỳ dài hơn.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Giảm chiều cao của tòa nhà.",
+                      "rationale": "Mặc dù giảm chiều cao sẽ làm giảm chu kỳ, nhưng đây không phải là một 'phương pháp' khả thi trong thực tế thiết kế, mà là một sự thay đổi cơ bản về kiến trúc.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Lắp đặt một khối dao động phụ (TMD).",
+                      "rationale": "Một TMD được thiết kế để hấp thụ năng lượng và giảm biên độ dao động, chứ không làm thay đổi chu kỳ dao động riêng của kết cấu chính.",
+                      "isCorrect": false
+                    }
+                  ]
+                },
+                {
+                  "question": "Mục đích chính của việc giới hạn chu kỳ dao động trong thiết kế kháng chấn là gì?",
+                  "hint": "Hãy xem xét điều gì sẽ xảy ra nếu tần số dao động của tòa nhà trùng với tần số của một trận động đất.",
+                  "answerOptions": [
+                    {
+                      "text": "Để đảm bảo tiện nghi cho người sử dụng.",
+                      "rationale": "Tiện nghi cho người sử dụng chủ yếu liên quan đến dao động do gió. Mặc dù có liên quan, nhưng đây không phải là mục đích chính trong thiết kế kháng chấn.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Để tránh hiện tượng cộng hưởng nguy hiểm với nền đất.",
+                      "rationale": "Nếu chu kỳ của công trình trùng với chu kỳ chủ đạo của nền đất, biên độ dao động có thể tăng lên đột ngột, gây ra hư hỏng nghiêm trọng.",
+                      "isCorrect": true
+                    },
+                    {
+                      "text": "Để giảm chi phí xây dựng.",
+                      "rationale": "Việc giới hạn chu kỳ dao động thường đòi hỏi kết cấu cứng hơn, điều này có thể làm tăng chi phí xây dựng chứ không phải giảm đi.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Để đơn giản hóa quá trình tính toán.",
+                      "rationale": "Việc tuân thủ các giới hạn về chu kỳ thường làm cho quá trình phân tích và thiết kế trở nên phức tạp hơn.",
+                      "isCorrect": false
+                    }
+                  ]
+                },
+                {
+                  "question": "Theo công thức thực nghiệm T ≈ 0.075 * H^(3/4), chu kỳ dao động của một tòa nhà khung bê tông cốt thép cao 200m là bao nhiêu?",
+                  "hint": "Hãy thay giá trị H = 200 vào công thức và tính toán.",
+                  "answerOptions": [
+                    {
+                      "text": "Khoảng 3.99 giây",
+                      "rationale": "Tính toán 0.075 nhân với 200 lũy thừa 0.75 cho ra kết quả gần với giá trị này.",
+                      "isCorrect": true
+                    },
+                    {
+                      "text": "Khoảng 2.50 giây",
+                      "rationale": "Kết quả này quá nhỏ, có thể do lỗi trong việc tính toán số mũ.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Khoảng 5.31 giây",
+                      "rationale": "Kết quả này lớn hơn đáng kể, có thể do đã sử dụng một hệ số Ct khác (ví dụ: của khung thép).",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Khoảng 20.0 giây",
+                      "rationale": "Giá trị này không thực tế và có thể là kết quả của việc áp dụng sai công thức, ví dụ như T = 0.1 * H.",
+                      "isCorrect": false
+                    }
+                  ]
+                },
+                {
+                  "question": "Giữa một tòa nhà khung thép và một tòa nhà khung bê tông cốt thép có cùng chiều cao và hình dạng, tòa nhà nào thường có chu kỳ dao động riêng DÀI HƠN?",
+                  "hint": "Hãy xem xét hệ số Ct trong công thức thực nghiệm cho hai loại kết cấu này.",
+                  "answerOptions": [
+                    {
+                      "text": "Tòa nhà khung thép.",
+                      "rationale": "Kết cấu thép thường nhẹ hơn và 'mềm' hơn so với kết cấu bê tông cốt thép có cùng khả năng chịu lực, dẫn đến chu kỳ dao động dài hơn.",
+                      "isCorrect": true
+                    },
+                    {
+                      "text": "Tòa nhà khung bê tông cốt thép.",
+                      "rationale": "Kết cấu bê tông cốt thép thường có độ cứng lớn hơn và nặng hơn, dẫn đến chu kỳ dao động ngắn hơn.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Cả hai có chu kỳ như nhau.",
+                      "rationale": "Mặc dù có cùng chiều cao, nhưng vật liệu và hệ kết cấu khác nhau sẽ dẫn đến các đặc tính động lực học khác nhau.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Không thể xác định nếu không có phân tích chi tiết.",
+                      "rationale": "Mặc dù phân tích chi tiết là cần thiết cho thiết kế cuối cùng, nhưng về mặt nguyên tắc chung, kết cấu thép có xu hướng 'mềm' hơn.",
+                      "isCorrect": false
+                    }
+                  ]
+                },
+                {
+                  "question": "Chức năng chính của hệ kết cấu 'outrigger' trong nhà cao tầng là gì?",
+                  "hint": "Hệ thống này kết nối lõi trung tâm với các cột biên. Điều này ảnh hưởng đến khả năng chống lại lực ngang như thế nào?",
+                  "answerOptions": [
+                    {
+                      "text": "Tăng đáng kể độ cứng ngang của công trình.",
+                      "rationale": "Outrigger hoạt động như những cánh tay đòn khổng lồ, huy động các cột biên tham gia vào việc chống lại mô men uốn do tải trọng ngang, làm tăng độ cứng tổng thể.",
+                      "isCorrect": true
+                    },
+                    {
+                      "text": "Giảm tải trọng tĩnh thẳng đứng.",
+                      "rationale": "Hệ thống outrigger chủ yếu dùng để chống lại tải trọng ngang và không có tác dụng đáng kể trong việc giảm tải trọng tĩnh.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Hấp thụ năng lượng dao động.",
+                      "rationale": "Đây là chức năng của các thiết bị như damper hoặc TMD. Outrigger tăng độ cứng chứ không tiêu tán năng lượng.",
+                      "isCorrect": false
+                    },
+                    {
+                      "text": "Tăng tính thẩm mỹ cho kiến trúc.",
+                      "rationale": "Mặc dù có thể được thể hiện ra bên ngoài, nhưng chức năng chính của outrigger là về kết cấu, không phải thẩm mỹ.",
+                      "isCorrect": false
+                    }
+                  ]
+                }
+              ]
+            };
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            function renderQuiz() {
+                const quizContainer = document.getElementById('quiz-container');
+                quizContainer.innerHTML = '';
+                questionsAnswered = 0;
+                score = 0;
+                quizCompletionMessage.classList.add('hidden');
+                summaryLink.classList.add('hidden');
+
+                quizData.questions.forEach((q, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'mb-6 p-4 border rounded-lg shadow-sm bg-slate-50';
+                    
+                    const questionText = document.createElement('p');
+                    questionText.className = 'font-semibold text-lg mb-4 text-slate-800';
+                    questionText.textContent = `Câu ${index + 1}: ${q.question}`;
+                    questionDiv.appendChild(questionText);
+
+                    const shuffledOptions = shuffleArray([...q.answerOptions]);
+                    
+                    shuffledOptions.forEach(option => {
+                        const optionButton = document.createElement('button');
+                        optionButton.className = 'w-full text-left p-3 mb-2 rounded-lg border-2 border-slate-200 hover:bg-slate-100 transition-colors duration-200 text-slate-700';
+                        optionButton.textContent = option.text;
+                        optionButton.onclick = () => {
+                            if (optionButton.disabled) return;
+                            
+                            const allOptions = questionDiv.querySelectorAll('button');
+                            allOptions.forEach(btn => btn.disabled = true);
+
+                            const rationaleP = document.createElement('p');
+                            rationaleP.className = 'text-sm mt-2 p-2 rounded-lg';
+                            rationaleP.textContent = option.rationale;
+
+                            if (option.isCorrect) {
+                                score++;
+                                optionButton.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+                                rationaleP.classList.add('bg-green-50', 'text-green-600');
+                            } else {
+                                optionButton.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+                                rationaleP.classList.add('bg-red-50', 'text-red-600');
+                                
+                                const correctOption = shuffledOptions.find(opt => opt.isCorrect);
+                                const correctButton = Array.from(allOptions).find(btn => btn.textContent === correctOption.text);
+                                if(correctButton) {
+                                     correctButton.classList.remove('bg-slate-100', 'border-slate-200', 'text-slate-700');
+                                     correctButton.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+                                }
+                            }
+                             questionDiv.appendChild(rationaleP);
+                             questionsAnswered++;
+                             if (questionsAnswered === quizData.questions.length) {
+                                 quizCompletionMessage.classList.remove('hidden');
+                                 summaryLink.classList.remove('hidden');
+                             }
+                        };
+                        questionDiv.appendChild(optionButton);
+                    });
+                    quizContainer.appendChild(questionDiv);
+                });
+            }
+
+            function renderSummary() {
+                 scoreDisplay.textContent = `${score}/${quizData.questions.length}`;
+            }
+
+            retakeBtn.addEventListener('click', () => {
+                renderQuiz();
+                setActiveLink('quiz');
+            });
 
             const setActiveLink = (targetId) => {
                 navLinks.forEach(link => {
@@ -264,6 +574,12 @@
                 if (targetId === 'standards' && !standardsChart) {
                     initStandardsChart();
                 }
+                if (targetId === 'quiz') {
+                    renderQuiz();
+                }
+                 if (targetId === 'summary') {
+                    renderSummary();
+                }
             };
 
             navLinks.forEach(link => {
@@ -275,7 +591,7 @@
                 });
             });
 
-            const initialTarget = window.location.hash.substring(1) || 'overview';
+            const initialTarget = window.location.hash.substring(1) || 'research';
             setActiveLink(initialTarget);
             
             const chartData = {
@@ -416,4 +732,3 @@
     </script>
 </body>
 </html>
-
