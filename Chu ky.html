@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phân Tích Chu Kỳ Dao Động Cho Nhà Cao Tầng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Cấu trúc SPA được giữ nguyên với thanh điều hướng bên trái để truy cập nhanh các chủ đề. Đã bổ sung một mục mới 'Giải pháp kiểm soát' để hoàn thiện quy trình nghiên cứu, đi từ lý thuyết đến ứng dụng. Đồng thời, mục 'Tiêu chuẩn' được nâng cấp với một biểu đồ so sánh trực quan, giúp người dùng không chỉ đọc mà còn thấy được sự khác biệt giữa các quy định. Cấu trúc này nhằm tạo ra một công cụ học tập và tra cứu toàn diện, có tính tương tác cao. -->
+    <!-- Visualization & Content Choices: 1. So sánh Tiêu chuẩn -> Mục tiêu: So sánh -> Trình bày: Biểu đồ cột -> Tương tác: Hiển thị giá trị khi di chuột -> Lý do: Trực quan hóa sự khác biệt trong kết quả tính toán chu kỳ theo các tiêu chuẩn khác nhau cho một công trình giả định, giúp so sánh dễ dàng hơn văn bản thuần túy -> Thư viện: Chart.js (Canvas). 2. Quy trình kiểm soát dao động -> Mục tiêu: Tổ chức -> Trình bày: Sơ đồ quy trình -> Tương tác: Không có (tĩnh) -> Lý do: Mô tả một quy trình theo các bước logic, sử dụng các khối và đường nối đơn giản để thể hiện luồng công việc một cách rõ ràng -> Phương pháp: HTML/Tailwind (dùng flexbox và border). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8fafc;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active {
+            background-color: #0ea5e9;
+            color: white;
+            transform: translateX(4px);
+        }
+        .nav-link:not(.active):hover {
+            background-color: #f1f5f9;
+            transform: translateX(4px);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 450px;
+        }
+        .flowchart-step {
+            position: relative;
+            text-align: center;
+            padding: 1rem;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            flex-grow: 1;
+        }
+        .flowchart-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 5rem;
+            height: 2px;
+            background-color: #cbd5e1;
+            position: relative;
+        }
+        .flowchart-arrow::after {
+            content: '';
+            position: absolute;
+            right: -1px;
+            border: solid #cbd5e1;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 4px;
+            transform: rotate(-45deg);
+        }
+        @media (max-width: 768px) {
+            .flowchart-arrow {
+                width: 2px;
+                height: 3rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .flowchart-arrow::after {
+                right: -4px;
+                bottom: -1px;
+                transform: rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside class="w-full md:w-64 bg-white border-r border-slate-200 p-4 md:p-6 shrink-0">
+            <h1 class="text-xl font-bold text-sky-600 mb-6">Nghiên Cứu Dao Động</h1>
+            <nav class="flex flex-col space-y-2">
+                <a href="#overview" data-target="overview" class="nav-link active font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">📖</span> Tổng quan
+                </a>
+                <a href="#factors" data-target="factors" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">📊</span> Yếu tố ảnh hưởng
+                </a>
+                <a href="#standards" data-target="standards" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">📜</span> Tiêu chuẩn & Giới hạn
+                </a>
+                <a href="#solutions" data-target="solutions" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">🛠️</span> Giải pháp kiểm soát
+                </a>
+                <a href="#calculator" data-target="calculator" class="nav-link font-semibold p-3 rounded-lg flex items-center">
+                    <span class="mr-3">🧮</span> Công cụ tính toán
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 md:p-8 lg:p-12 overflow-y-auto">
+            <section id="overview" class="content-section active">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Giới Hạn Chu Kỳ Dao Động Của Nhà Cao Tầng</h2>
+                <p class="text-lg text-slate-600 mb-6">
+                    Phần này giới thiệu tầm quan trọng của việc kiểm soát chu kỳ dao động riêng (T) trong thiết kế nhà cao tầng. Chu kỳ dao động không chỉ ảnh hưởng đến an toàn kết cấu dưới tác động của động đất và gió mà còn liên quan trực tiếp đến cảm nhận tiện nghi của người sử dụng. Một thiết kế tối ưu cần cân bằng giữa độ cứng, khối lượng và các yêu cầu về mặt kinh tế.
+                </p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-sky-600 text-lg mb-2">An Toàn Kết Cấu</h3>
+                        <p class="text-slate-600">Chu kỳ dao động là thông số quan trọng nhất để xác định lực động đất tác dụng lên công trình. Nếu chu kỳ dao động của công trình trùng với chu kỳ của nền đất, hiện tượng cộng hưởng có thể xảy ra, gây ra hư hỏng nghiêm trọng. Các tiêu chuẩn thiết kế thường giới hạn chu kỳ dao động để tránh vùng cộng hưởng nguy hiểm này.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-sky-600 text-lg mb-2">Tiện Nghi Sử Dụng</h3>
+                        <p class="text-slate-600">Đối với nhà cao tầng, dao động do gió có thể gây khó chịu cho người sử dụng, ngay cả khi kết cấu vẫn an toàn. Giới hạn về chuyển vị và gia tốc dao động ở đỉnh công trình, vốn liên quan mật thiết đến chu kỳ dao động, được đặt ra để đảm bảo điều kiện tiện nghi và tránh cảm giác chóng mặt, mất an toàn.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="factors" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Các Yếu Tố Ảnh Hưởng</h2>
+                <p class="text-lg text-slate-600 mb-6">
+                    Chu kỳ dao động riêng của công trình phụ thuộc chủ yếu vào ba yếu tố: khối lượng, độ cứng và chiều cao. Trong phần này, bạn có thể tương tác với biểu đồ để xem chiều cao và hệ kết cấu (đại diện cho độ cứng) ảnh hưởng đến chu kỳ dao động như thế nào.
+                </p>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="mb-4">
+                        <label class="font-semibold text-slate-700">Chọn hệ kết cấu:</label>
+                        <div id="system-selector" class="flex items-center space-x-4 mt-2">
+                             <button data-system="rc_frame" class="system-btn active bg-sky-500 text-white px-4 py-2 rounded-lg text-sm font-semibold">Khung BTCT</button>
+                             <button data-system="steel_frame" class="system-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold">Khung Thép</button>
+                             <button data-system="core_wall" class="system-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold">Vách Cứng</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="periodChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="standards" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Tiêu Chuẩn & Giới Hạn</h2>
+                <p class="text-lg text-slate-600 mb-6">
+                    Các tiêu chuẩn đưa ra các công thức thực nghiệm để ước tính chu kỳ dao động. Biểu đồ dưới đây so sánh kết quả tính toán chu kỳ cho một công trình khung BTCT cao 200m theo ba tiêu chuẩn phổ biến. Sự khác biệt cho thấy tầm quan trọng của việc lựa chọn và áp dụng đúng tiêu chuẩn trong từng dự án cụ thể.
+                </p>
+                 <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-lg text-sky-600 mb-2">So Sánh Trực Quan</h3>
+                        <p class="text-slate-600 text-sm mb-4">Biểu đồ thể hiện chu kỳ dao động (tính bằng giây) cho một tòa nhà cao 200m.</p>
+                        <div class="chart-container h-[40vh] max-h-[350px]">
+                            <canvas id="standardsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                            <h4 class="font-bold text-slate-800">TCVN 9386 & Eurocode 8</h4>
+                            <p class="text-sm text-slate-600">Sử dụng công thức T = 0.075 * H^(3/4), cho kết quả tương tự nhau, nhấn mạnh vào hệ kết cấu và chiều cao.</p>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                            <h4 class="font-bold text-slate-800">ASCE 7 (ước tính)</h4>
+                            <p class="text-sm text-slate-600">Sử dụng công thức đơn giản T = 0.1 * N (với N là số tầng). Cho một công trình 200m (~60 tầng), kết quả có thể lớn hơn, thể hiện một cách tiếp cận khác dựa trên kinh nghiệm thực tế tại Mỹ.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="solutions" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Giải Pháp Kiểm Soát Dao Động</h2>
+                <p class="text-lg text-slate-600 mb-6">
+                    Khi dao động của công trình vượt quá giới hạn cho phép về an toàn hoặc tiện nghi, các kỹ sư sẽ áp dụng nhiều giải pháp khác nhau. Quy trình chung bao gồm việc phân tích, lựa chọn và thiết kế hệ thống kiểm soát phù hợp nhất cho công trình.
+                </p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 w-full">
+                    <div class="flowchart-step">
+                        <h3 class="font-bold text-sky-600">1. Phân Tích</h3>
+                        <p class="text-sm text-slate-500">Mô hình hóa kết cấu, xác định chu kỳ dao động và chuyển vị đỉnh dưới tác động của tải trọng động (gió, động đất).</p>
+                    </div>
+                    <div class="flowchart-arrow"></div>
+                    <div class="flowchart-step">
+                        <h3 class="font-bold text-sky-600">2. Lựa Chọn</h3>
+                        <p class="text-sm text-slate-500">Dựa trên kết quả phân tích, chọn giải pháp: tăng độ cứng (vách, dầm outrigger) hoặc lắp đặt thiết bị cản (TMD, cản nhớt).</p>
+                    </div>
+                    <div class="flowchart-arrow"></div>
+                    <div class="flowchart-step">
+                        <h3 class="font-bold text-sky-600">3. Thiết Kế</h3>
+                        <p class="text-sm text-slate-500">Thiết kế chi tiết giải pháp đã chọn và kiểm tra lại mô hình để đảm bảo công trình thỏa mãn các yêu cầu của tiêu chuẩn.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="calculator" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Công Cụ Tính Toán Sơ Bộ</h2>
+                 <p class="text-lg text-slate-600 mb-6">
+                    Sử dụng công cụ dưới đây để ước tính nhanh chu kỳ dao động của công trình theo công thức thực nghiệm phổ biến trong TCVN 9386:2012. Công cụ này giúp bạn có cái nhìn ban đầu về chu kỳ dao động của một nhà cao tầng dựa trên chiều cao và hệ kết cấu của nó.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-lg text-sky-600 mb-4">Nhập thông số</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="buildingHeight" class="block font-semibold text-sm mb-1 text-slate-700">Chiều cao công trình (H) (m)</label>
+                                <input type="number" id="buildingHeight" class="w-full p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500" placeholder="Ví dụ: 150">
+                            </div>
+                            <div>
+                                <label for="structureType" class="block font-semibold text-sm mb-1 text-slate-700">Hệ chịu lực chính</label>
+                                <select id="structureType" class="w-full p-2 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                    <option value="0.075">Khung bê tông cốt thép</option>
+                                    <option value="0.085">Khung thép</option>
+                                    <option value="0.050">Kết cấu khác (vách, hộp)</option>
+                                </select>
+                            </div>
+                            <button id="calculateBtn" class="w-full bg-sky-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-sky-700 transition-colors">Tính toán</button>
+                        </div>
+                    </div>
+                     <div class="bg-slate-50 p-6 rounded-xl flex flex-col items-center justify-center text-center border-dashed border-2 border-slate-200">
+                         <h3 class="font-bold text-lg text-slate-500 mb-2">Kết quả ước tính</h3>
+                         <p class="text-4xl md:text-5xl font-bold text-slate-800" id="resultText">0.00 s</p>
+                         <p class="text-sm text-slate-500 mt-2">Chu kỳ dao động riêng (T1)</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const systemButtons = document.querySelectorAll('.system-btn');
+
+            let periodChart = null;
+            let standardsChart = null;
+
+            const setActiveLink = (targetId) => {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.dataset.target === targetId);
+                });
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+
+                if (targetId === 'factors' && !periodChart) {
+                    initPeriodChart();
+                }
+                if (targetId === 'standards' && !standardsChart) {
+                    initStandardsChart();
+                }
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.currentTarget.dataset.target;
+                    setActiveLink(targetId);
+                    window.location.hash = targetId;
+                });
+            });
+
+            const initialTarget = window.location.hash.substring(1) || 'overview';
+            setActiveLink(initialTarget);
+            
+            const chartData = {
+                heights: Array.from({ length: 21 }, (_, i) => i * 20),
+                systems: {
+                    rc_frame: { label: 'Khung BTCT', ct: 0.075, borderColor: 'rgb(14, 165, 233)', backgroundColor: 'rgba(14, 165, 233, 0.1)' },
+                    steel_frame: { label: 'Khung Thép', ct: 0.085, borderColor: 'rgb(249, 115, 22)', backgroundColor: 'rgba(249, 115, 22, 0.1)' },
+                    core_wall: { label: 'Vách Cứng', ct: 0.05, borderColor: 'rgb(22, 163, 74)', backgroundColor: 'rgba(22, 163, 74, 0.1)' },
+                },
+                calculatePeriods: function(systemKey) {
+                    const ct = this.systems[systemKey].ct;
+                    return this.heights.map(h => h > 0 ? ct * Math.pow(h, 0.75) : 0);
+                }
+            };
+            
+            function initPeriodChart(systemKey = 'rc_frame') {
+                if (periodChart) periodChart.destroy();
+                const systemConfig = chartData.systems[systemKey];
+                const chartDataset = {
+                    label: systemConfig.label,
+                    data: chartData.calculatePeriods(systemKey),
+                    borderColor: systemConfig.borderColor,
+                    backgroundColor: systemConfig.backgroundColor,
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointBackgroundColor: systemConfig.borderColor,
+                };
+
+                const ctx = document.getElementById('periodChart').getContext('2d');
+                periodChart = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: chartData.heights, datasets: [chartDataset] },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: 'Chiều cao công trình (m)', font: { size: 14 } }, grid: { display: false } },
+                            y: { title: { display: true, text: 'Chu kỳ dao động (s)', font: { size: 14 } }, beginAtZero: true }
+                        },
+                        plugins: {
+                            legend: { display: true, position: 'top' },
+                            tooltip: {
+                                callbacks: {
+                                    title: (tooltipItems) => `Cao độ: ${tooltipItems[0].label} m`,
+                                    label: (context) => `${context.dataset.label}: ${context.parsed.y.toFixed(2)} s`
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function updatePeriodChart(systemKey) {
+                if (!periodChart) return;
+                const systemConfig = chartData.systems[systemKey];
+                periodChart.data.datasets[0] = {
+                    label: systemConfig.label,
+                    data: chartData.calculatePeriods(systemKey),
+                    borderColor: systemConfig.borderColor,
+                    backgroundColor: systemConfig.backgroundColor,
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointBackgroundColor: systemConfig.borderColor,
+                };
+                periodChart.update();
+            }
+
+            systemButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const systemKey = e.currentTarget.dataset.system;
+                    updatePeriodChart(systemKey);
+                    systemButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-sky-500', 'text-white');
+                        btn.classList.add('bg-slate-200', 'text-slate-700');
+                    });
+                    e.currentTarget.classList.add('active', 'bg-sky-500', 'text-white');
+                    e.currentTarget.classList.remove('bg-slate-200', 'text-slate-700');
+                });
+            });
+
+            function initStandardsChart() {
+                if(standardsChart) standardsChart.destroy();
+                const ctx = document.getElementById('standardsChart').getContext('2d');
+                standardsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['TCVN 9386:2012', 'Eurocode 8', ['ASCE 7-16', '(ước tính)']],
+                        datasets: [{
+                            label: 'Chu kỳ dao động (s)',
+                            data: [3.99, 3.99, 6.0],
+                            backgroundColor: ['rgba(14, 165, 233, 0.7)', 'rgba(22, 163, 74, 0.7)', 'rgba(249, 115, 22, 0.7)'],
+                            borderColor: ['rgb(14, 165, 233)', 'rgb(22, 163, 74)', 'rgb(249, 115, 22)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: { title: { display: true, text: 'Chu kỳ (s)' }, beginAtZero: true },
+                            y: { grid: { display: false } }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const label = tooltipItems[0].label;
+                                        return Array.isArray(label) ? label.join(' ') : label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const heightInput = document.getElementById('buildingHeight');
+            const typeSelect = document.getElementById('structureType');
+            const calcBtn = document.getElementById('calculateBtn');
+            const resultText = document.getElementById('resultText');
+
+            calcBtn.addEventListener('click', () => {
+                const H = parseFloat(heightInput.value);
+                const Ct = parseFloat(typeSelect.value);
+
+                if (isNaN(H) || H <= 0) {
+                    resultText.textContent = "Lỗi!";
+                    return;
+                }
+                const T = Ct * Math.pow(H, 0.75);
+                resultText.textContent = `${T.toFixed(2)} s`;
+            });
+        });
+    </script>
+</body>
+</html>
+
